@@ -1,0 +1,116 @@
+﻿@model IEnumerable<ModalViewProduct.Models.ProductSold>
+
+<p>
+    <a href="#" class="btn btn-primary" onclick="NewProductSold()" id="btnNew">New ProductSold</a>
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Store.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateSold)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Store.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateSold)
+        </td>
+        <td>
+
+            <a href="#" class="btn btn-primary" onclick="EditProductSold(@item.ID)" id="btnEdit">Edit</a>
+            <a href="#" class="btn btn-primary" onclick="DeleteProductSold(@item.ID)" id="btnDelete">Delete</a>
+
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+        </td>
+    </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="MyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+
+        var EditProductSold = function (employeeId) {
+
+            var url = "/ProductSolds/Edit?id=" + employeeId;
+
+
+            $("#myModalBodyDiv1").load(url, function () {
+                $("#MyModal").modal("show");
+
+            })
+
+        }
+
+
+        var DeleteProductSold = function (employeeId) {
+
+            var url = "/ProductSolds/Delete?id=" + employeeId;
+
+
+            $("#myModalBodyDiv1").load(url, function () {
+                $("#MyModal").modal("show");
+
+            })
+
+        }
+
+
+        var NewProductSold = function () {
+
+            var url = "/ProductSolds/Create";
+            $("#myModalBodyDiv1").load(url, function () {
+                $("#MyModal").modal("show");
+
+            })
+
+        }
+
+
+    </script>
+}
